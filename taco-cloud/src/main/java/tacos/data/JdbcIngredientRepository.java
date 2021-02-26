@@ -28,7 +28,7 @@ public class JdbcIngredientRepository implements IngredientRepository {
 
 	@Override
 	public Ingredient findOne(String id) {
-		String query = "select * from Ingredient where id=" + id;
+		String query = "select * from Ingredient where id=\'" + id+"\'";
 		return jdbcTemplate.queryForObject(query, new IngredientMapper());
 	}
 

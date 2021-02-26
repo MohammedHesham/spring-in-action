@@ -4,6 +4,13 @@ import java.util.List;
 import java.util.Date;
 import java.util.ArrayList;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
@@ -13,7 +20,15 @@ import org.hibernate.validator.constraints.CreditCardNumber;
 import lombok.Data;
 
 @Data
+@Entity
+@Table(name = "Taco_Order")
 public class Order {
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+	
 	@NotEmpty(message = "Name is required")
 	private String name;
 	@NotEmpty(message = "street is required")
@@ -35,9 +50,15 @@ public class Order {
 	
 	private Date placedAt;
 
+	@ManyToMany(targetEntity = Taco.class)
 	private List<Taco> designs=new ArrayList<>();
 	
 	public void addDesign(Taco design) {
 		designs.add(design);
+	}
+	
+	@PrePersist
+	public void placedAt() {
+		placedAt = new Date();
 	}
 }

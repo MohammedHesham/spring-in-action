@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import lombok.extern.slf4j.Slf4j;
-import tacos.data.OrderRepository;
+import tacos.repository.*;
 import tacos.domain.Order;
 
 @Slf4j
@@ -22,7 +22,6 @@ import tacos.domain.Order;
 @RequestMapping("/orders")
 @SessionAttributes("order")
 public class OrderController {
-	private static final Logger log = LoggerFactory.getLogger(OrderController.class);
 
 	private final OrderRepository orderRepository;
 	
